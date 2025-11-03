@@ -1,17 +1,25 @@
 <template>
-  <div class="about-view">
-    <AppAbout />
+  <div>
+    <h2 class="ctitle">About Alexandrie</h2>
+    <IconApp width="150px" height="150px" style="float: right" />
+    <p class="csubtitle">Information about the application.</p>
+    <p>
+      <strong>Alexandrie version: {{ version }}</strong>
+    </p>
+    <p>
+      <strong>Client: {{ isPWA ? 'PWA' : 'Website' }}</strong>
+    </p>
+    <p>
+      Alexandrie is a personal knowledge management tool designed to help you organize and retrieve your notes efficiently. <br />
+      It offers a range of features including document organization, tagging, and advanced search capabilities. <br />
+      If you have any questions, suggestions or if you found a bug, please feel free to reach out to us! You can create an issue on the
+      <NuxtLink to="https://github.com/Smaug6739/Alexandrie" target="_blank" style="font-weight: bold; color: var(--primary)">GitHub repository</NuxtLink>.
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import AppAbout from '~/components/AppAbout.vue';
+import pgk from '~/../package.json';
+const version = pgk.version || 'unknown';
+const isPWA = !!window.matchMedia('(display-mode: standalone)').matches;
 </script>
-
-<style scoped lang="scss">
-.about-view {
-  max-width: 900px;
-  margin: 0 auto;
-  padding-bottom: 2rem;
-}
-</style>
