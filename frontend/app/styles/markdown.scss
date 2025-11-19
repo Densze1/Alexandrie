@@ -145,6 +145,7 @@
 	}
 }
 
+// *************** COLORS **************** //
 .blue,
 [blue] {
 	border-color: var(--blue-border);
@@ -158,6 +159,10 @@
 			fill: var(--blue) !important;
 		}
 	}
+}
+
+.border-blue {
+	border-color: var(--blue) !important;
 }
 
 .green,
@@ -175,6 +180,10 @@
 	}
 }
 
+.border-green {
+	border-color: var(--green) !important;
+}
+
 .teal,
 [teal] {
 	border-color: var(--teal-border);
@@ -188,6 +197,10 @@
 			fill: var(--teal) !important;
 		}
 	}
+}
+
+.border-teal {
+	border-color: var(--teal) !important;
 }
 
 .yellow,
@@ -205,6 +218,9 @@
 	}
 }
 
+.border-yellow {
+	border-color: var(--yellow) !important;
+}
 
 .red,
 [red] {
@@ -219,6 +235,10 @@
 			fill: var(--red) !important;
 		}
 	}
+}
+
+.border-red {
+	border-color: var(--red) !important;
 }
 
 .purple,
@@ -236,6 +256,10 @@
 	}
 }
 
+.border-pink {
+	border-color: var(--pink) !important;
+}
+
 .pink,
 [pink] {
 	border-color: var(--pink-border);
@@ -251,6 +275,10 @@
 	}
 }
 
+.border-pink {
+	border-color: var(--pink) !important
+}
+
 .primary {
 	border-color: var(--primary-border);
 	color: var(--primary);
@@ -263,6 +291,10 @@
 			fill: var(--primary) !important;
 		}
 	}
+}
+
+.border-primary {
+	border-color: var(--primary) !important;
 }
 
 
@@ -291,4 +323,98 @@
 .columns .column {
 	margin: 0 10px;
 	flex: 1;
+}
+
+// *************** CODE BLOCKS **************** //
+// Copy Button Styles
+.code-block-wrapper {
+	position: relative;
+}
+
+.code-copy-btn {
+	position: absolute;
+	top: 22px;
+	right: 14px;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	fill: #e3e4e6;
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity .15s ease, background-color .15s ease, border-color .15s ease;
+}
+
+.code-block-wrapper:hover .code-copy-btn {
+	opacity: 1;
+}
+
+.code-copy-btn:hover {
+	background: #b0aeb91a;
+}
+
+.code-copy-btn.copied {
+	fill: #2ac27a;
+}
+
+// *************** CARDS BLOCKS **************** //
+.block {
+	margin: 0.5rem 0;
+	padding: 0.5rem;
+	border: 1px solid var(--border-color);
+	display: flex;
+	flex-direction: column;
+}
+
+
+.block.card {
+	border-radius: 6px;
+}
+
+.block-title {
+	font-weight: 600;
+}
+
+/* ----- PANEL ----- */
+
+.block.panel {
+	padding-top: 0;
+
+	.block-title {
+		margin: 0 -0.5rem 0 -0.5rem;
+		background: var(--bg-contrast);
+		border-bottom: 1px solid var(--border-color);
+		font-weight: 600;
+		padding: .5rem 1rem;
+	}
+}
+
+/* Modifiers */
+.rounded {
+	border-radius: 12px;
+
+	.block-title {
+		border-radius: 12px 12px 0 0;
+	}
+}
+
+.shadow {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+}
+
+.bordered {
+	border: 1px solid var(--border-color);
+}
+
+.gap-sm {
+	gap: .5rem;
+}
+
+.gap-md {
+	gap: 1rem;
+}
+
+.gap-lg {
+	gap: 2rem;
 }

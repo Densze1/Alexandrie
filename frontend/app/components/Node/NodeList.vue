@@ -10,29 +10,34 @@
         {{ parent.name }}
       </h1>
       <h1 v-else-if="parentId === 'shared'">
-        <Icon name="users" display="xl" :class="`parent-icon grey`" />
-        All workspaces
+        <Icon name="users" display="xl" class="parent-icon grey" />
+        Shared with me
       </h1>
       <h1 v-else>
-        <Icon name="workspace" display="xl" :class="`parent-icon primary`" />
+        <Icon name="workspace" display="xl" class="parent-icon primary" />
         All workspaces
       </h1>
-      <div style="display: flex; align-items: center; gap: 8px">
-        <NuxtLink v-if="parent?.shared && parent.user_id != connectedId" @click="openRemoveShareModal"><Icon name="group_off" display="lg" /></NuxtLink>
-        <NuxtLink v-if="parent && nodesStore.hasPermissions(parent, 4)" @click="openPermissionsModal"><Icon name="manage_access" display="lg" /></NuxtLink>
-        <NuxtLink v-if="parent && nodesStore.hasPermissions(parent, 2)" :to="`/dashboard/categories/${parent?.id}/edit`"
+      <div style="display: flex; align-items: center; gap: 4px">
+        <NodeFilter v-show="!isMobile()" :nodes="nodes" @update:nodes="filteredNodes = $event" />
+        <NuxtLink v-if="parent?.shared && parent.user_id != connectedId" class="btn-icon no-mobile" @click="openRemoveShareModal"
+          ><Icon name="group_off" display="lg"
+        /></NuxtLink>
+        <NuxtLink v-if="parent && nodesStore.hasPermissions(parent, 4)" class="btn-icon no-mobile" @click="openPermissionsModal"
+          ><Icon name="manage_access" display="lg"
+        /></NuxtLink>
+        <NuxtLink v-if="parent && nodesStore.hasPermissions(parent, 2)" class="btn-icon" :to="`/dashboard/categories/${parent?.id}/edit`"
           ><Icon name="settings" display="lg"
         /></NuxtLink>
-        <span class="doc-count">{{ nodes.length }}</span>
+        <span class="doc-count no-mobile">{{ filteredNodes.length != nodes.length ? `${filteredNodes.length} /` : '' }} {{ nodes.length }} </span>
         <ViewSelection v-model="view" />
       </div>
     </header>
-    <div v-if="nodes.length">
+    <div v-if="filteredNodes.length">
       <div v-if="view == 'table'" class="line-container">
-        <DocumentLine v-for="document of nodes" :key="document.id" :document="document" class="line-item" />
+        <DocumentLine v-for="document of filteredNodes" :key="document.id" :document="document" class="line-item" />
       </div>
       <div v-else class="document-list">
-        <DocumentsGrid :documents="nodes" />
+        <DocumentsGrid :documents="filteredNodes" />
       </div>
     </div>
     <NoContent
@@ -48,6 +53,7 @@
 <script setup lang="ts">
 import NodePermissions from '~/components/Node/NodePermissions.modal.vue';
 import RemoveSharedNode from '~/components/Node/RemoveSharedNode.modal.vue';
+import NodeFilter from '~/components/Node/Filter.vue';
 import type { Node } from '~/stores';
 
 const props = defineProps<{ parent?: Node; nodes: Node[]; parentId?: string }>();
@@ -55,6 +61,7 @@ const nodesStore = useNodesStore();
 const connectedId = useUserStore().user?.id;
 
 const view: Ref<'table' | 'list'> = ref('list');
+const filteredNodes = ref<Node[]>(props.nodes);
 
 const openPermissionsModal = () => {
   if (props.parent) useModal().add(new Modal(shallowRef(NodePermissions), { props: { node: props.parent }, size: 'small' }));

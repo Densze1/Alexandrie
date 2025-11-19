@@ -17,9 +17,7 @@
       <span>Workspaces</span>
       <NuxtLink to="/dashboard/categories" @click="close"><Icon name="categories" />Manage categories</NuxtLink>
       <NuxtLink to="/dashboard/docs" @click="close"><Icon name="draft" />Manage documents</NuxtLink>
-      <NuxtLink to="/dashboard/import" style="display: flex; align-items: center" @click="close"
-        ><Icon name="import" />Manage importations <tag yellow>Beta</tag></NuxtLink
-      >
+      <NuxtLink to="/dashboard/import" style="display: flex; align-items: center" @click="close"><Icon name="import" />Manage importations</NuxtLink>
       <span>Utils <tag blue>New</tag></span>
       <NuxtLink @click="setPage('shortcuts')"><Icon name="shortcuts" />Shortcuts</NuxtLink>
       <NuxtLink @click="setPage('snippets')"><Icon name="snippets" />Snippets</NuxtLink>
@@ -82,13 +80,12 @@ const close = () => emit('close');
   width: 100%;
   height: 100%;
   background-color: var(--bg-color);
-
   nav {
     padding: 1rem;
     border-right: 1px solid var(--border-color);
     gap: 1rem;
     overflow-y: auto;
-
+    width: 270px;
     span {
       font-size: 0.9rem;
       font-weight: 500;

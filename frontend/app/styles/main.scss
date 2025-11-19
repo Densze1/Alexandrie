@@ -93,6 +93,7 @@ form {
 }
 
 @media print {
+
 	header,
 	footer,
 	nav,
@@ -113,6 +114,20 @@ form {
 	}
 
 	.no-print {
+		display: none !important;
+	}
+}
+
+// TABLET \\
+@media screen and (width <=1023px) {
+	.no-tablet {
+		display: none;
+	}
+}
+
+// MOBILE \\
+@media screen and (width <=719px) {
+	.no-mobile {
 		display: none !important;
 	}
 }
